@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Photo = require('../models/photo');
+const User = require('../models/user');
 
 const photoRouter = express.Router();
 
