@@ -19,8 +19,8 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    userPhotos: [photoSchema],
-    favorites: [photoSchema]
+    userPhotos: [String],
+    favorites: [String]
 }, {
     timestamps: true
 });

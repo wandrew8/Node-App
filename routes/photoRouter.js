@@ -92,6 +92,17 @@ photoRouter.route('/category/:category')
         res.json(photo);
     })
     .catch(err => next(err));
+});
+
+photoRouter.route('/search/:query')
+.get((req, res, next) => {
+    Photo.find({ "tags": req.params.query })
+    .then(photo => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(photo);
+    })
+    .catch(err => next(err));
 })
 
 module.exports = photoRouter;
