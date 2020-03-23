@@ -1,6 +1,8 @@
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,500,600,700&display=swap");
 .photoContainer {
-  columns: 6 200px;
+  columns: 6 300px;
   column-gap: 1rem;
+  margin: 0rem 4rem;
 }
 .photoContainer .photo {
   width: 150px;
@@ -9,6 +11,12 @@
   display: inline-block;
   position: relative;
   width: 100%;
+}
+.photoContainer .photo:hover .category {
+  opacity: 1;
+}
+.photoContainer .photo:hover .author {
+  opacity: 1;
 }
 .photoContainer .photo .image {
   width: 100%;
@@ -24,26 +32,35 @@
   width: 100%;
   text-transform: uppercase;
   font-size: 12px;
+  transition: 300ms ease-in;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
   height: 50px;
   align-items: center;
+  opacity: 0;
 }
 .photoContainer .photo .category p {
   padding-left: 1rem;
 }
-.photoContainer .photo .category i {
-  padding-right: 1rem;
+.photoContainer .photo .category .likes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.photoContainer .photo .category .likes i {
+  padding: 0rem 0.5rem;
 }
 .photoContainer .photo .author {
   display: flex;
+  transition: 300ms ease-in;
   align-items: center;
   justify-content: space-evenly;
   position: absolute;
-  bottom: 23px;
+  bottom: 4px;
   height: 50px;
   width: 100%;
   text-decoration: none;
   color: black;
+  opacity: 0;
   background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));
 }
 .photoContainer .photo .author img {
@@ -63,36 +80,40 @@
   margin: 0 0.5rem;
 }
 .photoContainer .photoContainer:nth-child(1) {
-  height: 342px;
-  line-height: 342px;
+  height: 356px;
+  line-height: 356px;
 }
 .photoContainer .photoContainer:nth-child(2) {
-  height: 423px;
-  line-height: 423px;
+  height: 138px;
+  line-height: 138px;
 }
 .photoContainer .photoContainer:nth-child(3) {
-  height: 207px;
-  line-height: 207px;
+  height: 156px;
+  line-height: 156px;
 }
 .photoContainer .photoContainer:nth-child(4) {
-  height: 273px;
-  line-height: 273px;
+  height: 199px;
+  line-height: 199px;
 }
 .photoContainer .photoContainer:nth-child(5) {
-  height: 252px;
-  line-height: 252px;
+  height: 456px;
+  line-height: 456px;
 }
 .photoContainer .photoContainer:nth-child(6) {
-  height: 498px;
-  line-height: 498px;
+  height: 148px;
+  line-height: 148px;
 }
 .photoContainer .photoContainer:nth-child(7) {
-  height: 164px;
-  line-height: 164px;
+  height: 178px;
+  line-height: 178px;
 }
 .photoContainer .photoContainer:nth-child(8) {
-  height: 279px;
-  line-height: 279px;
+  height: 283px;
+  line-height: 283px;
+}
+
+body {
+  font-family: "Playfair Display", serif;
 }
 
 /*# sourceMappingURL=style.css.map */

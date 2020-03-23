@@ -20,16 +20,11 @@ function postPhotos(data) {
                 <img class="image" width="200" height="200" src="${photo.imageUrl}">
                 <div class="category">
                     <p>${photo.category}</p>
-                    <i class="far fa-heart"></i>
+                    <div class="likes"><p>${photo.likes}</p><i class="far fa-heart"></i></div>
                 </div>
                 <div class="author">
                     <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80"></img>
                     <p>${photo.author}</p>
-                </div>
-                <div class="tags">
-                    ${photo.tags.forEach(tag => {
-                        return `<small>${tag}</small>`
-                    })}
                 </div>
                 </a>
             </div>
