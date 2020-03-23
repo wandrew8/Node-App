@@ -17,7 +17,7 @@ app.use('/photos', photoRouter);
 app.use((req, res) => {
     res.statusMessage = 200;
     res.setHeader('Content-Type', 'text/html');
-    res.send("Hello, handsome");
+    res.sendFile('./public/index.html');
 });
 
 
