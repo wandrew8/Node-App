@@ -18,41 +18,58 @@
     <a href="/photos">Here are the photos available</a>
     <div class="formModal">
       <form id="addPhotoForm">
-        <label for="author">What is your name?</label>
-        <input type="text" id="author" />
-        <label for="category">Category</label>
-        <select required id="category">
-          <option value="landscape">Landscape</option>
-          <option value="architecture">Architecture</option>
-          <option value="wildlife">Wildlife</option>
-          <option value="nature">Nature</option>
-          <option value="aerial">Aerial</option>
-          <option value="portrait">Portrait</option>
-          <option value="fashion">Fashion</option>
-          <option value="sports">Sports</option>
-          <option value="art">Art</option>
-        </select>
-        <label for="tags">Add some tags to describe your image</label>
-        <input id="tags" list="tags" />
-        <datalist id="tags">
-          <option value="mountain"> </option>
-          <option value="food"> </option>
-          <option value="yoga"> </option>
-          <option value="dogs"> </option>
-          <option value="sunrise"> </option>
-          <option value="travel"> </option>
-          <option value="dinner"> </option>
-          <option value="city"> </option>
-          <option value="modern"> </option>
-          <option value="blue"> </option>
-          <option value="football"> </option>
-          <option value="garden"> </option>
-          <option value="animals"> </option>
-        </datalist>
-        <button id="addTagButton"><i class="fas fa-plus"></i></button>
+        <h2>ADD YOUR OWN PHOTO</h2>
+        <div class="formGroup">
+          <label for="author">What is your name?</label>
+          <input type="text" id="author" />
+        </div>
+        <div class="formGroup">
+          <label for="category">Category</label>
+          <select required id="category">
+            <option value="landscape">Landscape</option>
+            <option value="architecture">Architecture</option>
+            <option value="wildlife">Wildlife</option>
+            <option value="nature">Nature</option>
+            <option value="aerial">Aerial</option>
+            <option value="portrait">Portrait</option>
+            <option value="fashion">Fashion</option>
+            <option value="sports">Sports</option>
+            <option value="art">Art</option>
+          </select>
+        </div>
+        <div class="formGroup">
+          <label for="tags">Add some tags to describe your image</label>
+          <div class="row">
+            <input list="tags" id="tagInput" />
+            <datalist id="tags">
+              <option value="mountain"> </option>
+              <option value="food"> </option>
+              <option value="yoga"> </option>
+              <option value="dogs"> </option>
+              <option value="sunrise"> </option>
+              <option value="travel"> </option>
+              <option value="dinner"> </option>
+              <option value="city"> </option>
+              <option value="modern"> </option>
+              <option value="blue"> </option>
+              <option value="football"> </option>
+              <option value="garden"> </option>
+              <option value="animals"> </option>
+            </datalist>
+            <button id="addTagButton"><i class="fas fa-plus"></i></button>
+          </div>
+          <div class="tagAnswers"></div>
+        </div>
+        <button id="upload_widget" class="cloudinary-button">
+          Upload files
+        </button>
       </form>
     </div>
     <div class="photoContainer"></div>
   </body>
+  <script
+    src="https://widget.cloudinary.com/v2.0/global/all.js"
+    type="text/javascript"
+  ></script>
   <script src="./javascript/app.js"></script>
 </html>

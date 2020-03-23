@@ -1,5 +1,17 @@
 const formButton = document.querySelector('.formButton');
 const addTagButton = document.getElementById('addTagButton');
+const tagAnswers = document.querySelector('.tagAnswers');
+
+//CLOUDINARY PHOTO UPLOAD
+const myWidget = cloudinary.createUploadWidget({
+    cloudName: 'dcokaa0ia', 
+    uploadPreset: 'pixelImages'}, (error, result) => { 
+      if (!error && result && result.event === "success") { 
+        console.log('Done! Here is the image info: ', result.info);
+        
+      }
+    }
+  )
 
 function getPhotos() {
     fetch('http://localhost:3000/photos')
@@ -42,8 +54,24 @@ formButton.addEventListener('click', function() {
     formModal.classList.add('showModal');
 });
 
-addTagButton.addEventListener('submit', function(e) {
+addTagButton.addEventListener('click', function(e) {
     e.preventDefault();
-    
-})
+    let value = document.querySelector("#tagInput");
+    tagAnswers.innerHTML += `<p class="smallTag">${value.value} </p>`;
+    value.value = ''; 
+});
+
+tagAnswers.addEventListener("click", function(e) {
+    console.log(e)
+    console.log(e.target)
+    if (e.target.tagName === "P") {
+        e.target.remove();
+    }
+});
+
+document.getElementById("upload_widget").addEventListener("click", function(e){
+    e.preventDefault();
+    myWidget.open();
+  }, false);
+
 

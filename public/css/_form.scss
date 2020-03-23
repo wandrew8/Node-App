@@ -1,8 +1,60 @@
 .formModal {
   display: none;
   transition: 300ms ease-in-out;
+  top: 4rem;
+  right: 250px;
+  height: 500px;
+  width: 500px;
+  z-index: 10;
+  background-color: #fff;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  form {
+    width: 100%;
+    margin: 2rem 3rem;
+    input {
+      border: solid 1px lightgray;
+      width: 100%;
+    }
+  }
+  .formGroup {
+    label {
+      display: block;
+      padding: 0.5rem 0rem;
+    }
+    display: block;
+    margin: 1rem 0.5rem;
+    .row {
+      display: grid;
+      grid-template-columns: 5fr 1fr;
+      input {
+        width: 100%;
+      }
+    }
+  }
+  .tagAnswers {
+    height: 75px;
+    margin: 1rem 0rem;
+    padding: 15px;
+    border: solid 1px lightgray;
+  }
+  .smallTag {
+    font-size: 0.9rem;
+    display: inline;
+    padding: 0rem 0.5rem;
+    transition: 200ms ease-in;
+    &:hover::after {
+      content: "X";
+      font-size: 0.7rem;
+      position: absolute;
+      cursor: default;
+    }
+  }
 }
 
 .showModal {
-  display: block;
+  display: flex;
+  justify-content: center;
 }
