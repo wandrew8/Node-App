@@ -1,0 +1,17 @@
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  h1 {
+    padding: 0.5rem 2rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+  .formButton {
+    padding: 0.5rem 2rem;
+    i {
+      font-size: 1.3rem;
+    }
+  }
+}

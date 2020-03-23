@@ -1,4 +1,31 @@
 @import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,500,600,700&display=swap");
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+header h1 {
+  padding: 0.5rem 2rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+header .formButton {
+  padding: 0.5rem 2rem;
+}
+header .formButton i {
+  font-size: 1.3rem;
+}
+
+.formModal {
+  display: none;
+  transition: 300ms ease-in-out;
+}
+
+.showModal {
+  display: block;
+}
+
 .photoContainer {
   columns: 6 300px;
   column-gap: 1rem;
@@ -80,36 +107,36 @@
   margin: 0 0.5rem;
 }
 .photoContainer .photoContainer:nth-child(1) {
-  height: 356px;
-  line-height: 356px;
+  height: 376px;
+  line-height: 376px;
 }
 .photoContainer .photoContainer:nth-child(2) {
-  height: 138px;
-  line-height: 138px;
+  height: 326px;
+  line-height: 326px;
 }
 .photoContainer .photoContainer:nth-child(3) {
-  height: 156px;
-  line-height: 156px;
+  height: 185px;
+  line-height: 185px;
 }
 .photoContainer .photoContainer:nth-child(4) {
-  height: 199px;
-  line-height: 199px;
+  height: 215px;
+  line-height: 215px;
 }
 .photoContainer .photoContainer:nth-child(5) {
-  height: 456px;
-  line-height: 456px;
+  height: 361px;
+  line-height: 361px;
 }
 .photoContainer .photoContainer:nth-child(6) {
-  height: 148px;
-  line-height: 148px;
+  height: 192px;
+  line-height: 192px;
 }
 .photoContainer .photoContainer:nth-child(7) {
-  height: 178px;
-  line-height: 178px;
+  height: 144px;
+  line-height: 144px;
 }
 .photoContainer .photoContainer:nth-child(8) {
-  height: 283px;
-  line-height: 283px;
+  height: 294px;
+  line-height: 294px;
 }
 
 body {

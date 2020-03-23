@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', getPhotos);
+const formButton = document.querySelector('.formButton');
+const addTagButton = document.getElementById('addTagButton');
 
 function getPhotos() {
     fetch('http://localhost:3000/photos')
@@ -32,3 +33,17 @@ function postPhotos(data) {
         container.innerHTML += html;
     })
 }
+
+//EVENT LISTENERS
+document.addEventListener('DOMContentLoaded', getPhotos);
+
+formButton.addEventListener('click', function() {
+    const formModal = document.querySelector(".formModal");
+    formModal.classList.add('showModal');
+});
+
+addTagButton.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+})
+
