@@ -16,16 +16,19 @@
       <div class="formButton"><i class="far fa-images"></i></div>
     </header>
     <a href="/photos">Here are the photos available</a>
+
+    <!-- FORM MODAL -->
     <div class="formModal">
       <form id="addPhotoForm">
         <h2>ADD YOUR OWN PHOTO</h2>
         <div class="formGroup">
           <label for="author">What is your name?</label>
-          <input type="text" id="author" />
+          <input type="text" id="author" required />
         </div>
         <div class="formGroup">
           <label for="category">Category</label>
           <select required id="category">
+            <option value="landscape">Select a category...</option>
             <option value="landscape">Landscape</option>
             <option value="architecture">Architecture</option>
             <option value="wildlife">Wildlife</option>
@@ -60,11 +63,18 @@
           </div>
           <div class="tagAnswers"></div>
         </div>
-        <button id="upload_widget" class="cloudinary-button">
-          Upload files
-        </button>
+        <div class="imageSample">
+          <button id="upload_widget" class="addPhoto-button">
+            Upload Image
+          </button>
+          <div class="imageSampleHolder"></div>
+        </div>
+        <div class="formGroup">
+          <button type="submit">Submit</button>
+        </div>
       </form>
     </div>
+
     <div class="photoContainer"></div>
   </body>
   <script

@@ -3,8 +3,10 @@
   transition: 300ms ease-in-out;
   top: 4rem;
   right: 250px;
-  height: 500px;
+  height: auto;
+  border-radius: 20px;
   width: 500px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
   z-index: 10;
   background-color: #fff;
   position: fixed;
@@ -20,12 +22,12 @@
     }
   }
   .formGroup {
+    display: block;
+    margin: 0.5rem;
     label {
       display: block;
       padding: 0.5rem 0rem;
     }
-    display: block;
-    margin: 1rem 0.5rem;
     .row {
       display: grid;
       grid-template-columns: 5fr 1fr;
@@ -50,6 +52,17 @@
       font-size: 0.7rem;
       position: absolute;
       cursor: default;
+    }
+  }
+  .imageSample {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0.5rem;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
     }
   }
 }
