@@ -5,6 +5,7 @@ const path = require('path');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const photoRouter = require('./routes/photoRouter');
+require('dotenv').config()
 
 
 const app = express();
@@ -20,10 +21,10 @@ app.use('/', (req, res) => {
     res.render('./public/index.html');
 });
 
+console.log(process.env.DATABASE)
 
 //Connect to mongodb server
-const url = 'mongodb://localhost:27017/pixelimages';
-const connect = mongoose.connect(url, {
+const connect = mongoose.connect(process.env.DATABASE, {
     useCreateIndex: true,
     useFindAndModify: false,
     useNewUrlParser: true, 
@@ -35,9 +36,7 @@ connect.then(() => console.log('Connected correctly to server'),
 );
 
 //connect to application server
-const hostname = 'localhost';
-const port = 3000;
-
-app.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}${port}`)
-})
+app.set('port', process.env.PORT || 3000);
+const server = app.listen(app.get('port'), () => {
+  console.log(`Express running → PORT ${server.address().port}`);
+});
