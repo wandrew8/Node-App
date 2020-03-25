@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
@@ -21,9 +22,15 @@
     <div class="formModal">
       <form id="addPhotoForm">
         <h2>ADD YOUR OWN PHOTO</h2>
+        <div class="closeModal"><i class="far fa-times-circle"></i></div>
         <div class="formGroup">
           <label for="author">What is your name?</label>
-          <input type="text" id="author" required />
+          <input
+            type="text"
+            id="author"
+            placeholder="Enter your name..."
+            required
+          />
         </div>
         <div class="formGroup">
           <label for="category">Category</label>

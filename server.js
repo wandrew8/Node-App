@@ -10,14 +10,14 @@ const photoRouter = require('./routes/photoRouter');
 const app = express();
 app.use(morgan('dev'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/photos', photoRouter);
-
-app.use((req, res) => {
+app.use('/', (req, res) => {
     res.statusMessage = 200;
     res.setHeader('Content-Type', 'text/html');
-    res.sendFile('./public/index.html');
+    res.render('./public/index.html');
 });
 
 

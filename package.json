@@ -4,10 +4,8 @@
   "description": "Stock photo search application",
   "main": "server.js",
   "scripts": {
-    "watch": "sass --watch ./public/css/style.scss:./public/css/style.css",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server.js",
-    "start": "npm run server"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +23,7 @@
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.5",
     "morgan": "^1.9.1",
+    "node-sass": "^4.13.1",
     "nodemon": "^2.0.2"
   }
 }
