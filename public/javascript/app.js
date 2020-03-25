@@ -7,6 +7,7 @@ const form = document.getElementById('addPhotoForm');
 const formModal = document.querySelector(".formModal");
 const closeModalButton = document.querySelector('.closeModal');
 const photoContainer = document.querySelector('.photoContainer');
+const searchBarButton = document.querySelector('.searchButton');
 
 //OTHER VARIABLES
 let imageToPost;
@@ -181,5 +182,20 @@ photoContainer.addEventListener('click', function(e) {
     }
 });
 
+//OPENS CLOSES SEARCHBAR 
+searchBarButton.addEventListener('click', function() {
+    const searchBar = document.querySelector('.searchbar');
+    const closeBar = document.querySelector('.closeBar');
+    searchBar.classList.remove('hidden');
+    closeBar.addEventListener('click', function() {
+        searchBar.classList.add('hidden');
+    })
+    window.addEventListener('scroll', function(e) {
+        if(window.scrollY > 200) {
+            searchBar.classList.add('hidden');
+        }
+    })
+
+})
 
 

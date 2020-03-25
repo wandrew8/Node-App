@@ -10,11 +10,51 @@ header h1 {
   font-weight: 400;
   text-transform: uppercase;
 }
-header .formButton {
-  padding: 0.5rem 2rem;
+header .tools {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-header .formButton i {
+header .tools div {
+  padding: 0.5rem 1rem;
+}
+header i {
   font-size: 1.3rem;
+}
+
+.searchbar {
+  display: flex;
+  width: 100%;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.99);
+  border-bottom: rgba(0, 0, 0, 0.5) solid 5px;
+  transition: 300ms ease-in;
+  opacity: 1;
+}
+.searchbar input {
+  width: 75%;
+  max-width: 500px;
+}
+.searchbar .closeBar {
+  position: absolute;
+  top: 0.5rem;
+  right: 2rem;
+  font-size: 1.5rem;
+}
+.searchbar .closeBar:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.hidden {
+  transition: 300ms ease-in;
+  transform: translateY(-120px);
+  opacity: 0;
 }
 
 .formModal {
@@ -193,36 +233,36 @@ header .formButton i {
   margin: 0 0.5rem;
 }
 .photoContainer .photoContainer:nth-child(1) {
-  height: 312px;
-  line-height: 312px;
+  height: 383px;
+  line-height: 383px;
 }
 .photoContainer .photoContainer:nth-child(2) {
-  height: 353px;
-  line-height: 353px;
+  height: 435px;
+  line-height: 435px;
 }
 .photoContainer .photoContainer:nth-child(3) {
-  height: 252px;
-  line-height: 252px;
+  height: 313px;
+  line-height: 313px;
 }
 .photoContainer .photoContainer:nth-child(4) {
-  height: 356px;
-  line-height: 356px;
+  height: 243px;
+  line-height: 243px;
 }
 .photoContainer .photoContainer:nth-child(5) {
-  height: 382px;
-  line-height: 382px;
+  height: 299px;
+  line-height: 299px;
 }
 .photoContainer .photoContainer:nth-child(6) {
-  height: 265px;
-  line-height: 265px;
+  height: 489px;
+  line-height: 489px;
 }
 .photoContainer .photoContainer:nth-child(7) {
-  height: 476px;
-  line-height: 476px;
+  height: 304px;
+  line-height: 304px;
 }
 .photoContainer .photoContainer:nth-child(8) {
-  height: 137px;
-  line-height: 137px;
+  height: 339px;
+  line-height: 339px;
 }
 
 .singlePhoto {

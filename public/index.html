@@ -14,9 +14,19 @@
   <body>
     <header>
       <h1>Search Stock Photos</h1>
-      <div class="formButton"><i class="far fa-images"></i></div>
+      <div class="tools">
+        <div class="searchButton"><i class="fas fa-search"></i></div>
+        <div class="formButton"><i class="far fa-images"></i></div>
+      </div>
     </header>
     <a href="/photos">Here are the photos available</a>
+
+    <!-- SEARCH BAR -->
+    <div class="searchbar hidden">
+      <div class="closeBar"><i class="far fa-times-circle"></i></div>
+      <input required type="text" id="searchTags" />
+      <button type="submit"><i class="fas fa-search"></i> Search</button>
+    </div>
 
     <!-- FORM MODAL -->
     <div class="formModal">

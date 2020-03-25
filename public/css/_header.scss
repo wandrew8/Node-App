@@ -8,10 +8,15 @@ header {
     font-weight: 400;
     text-transform: uppercase;
   }
-  .formButton {
-    padding: 0.5rem 2rem;
-    i {
-      font-size: 1.3rem;
+  .tools {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    div {
+      padding: 0.5rem 1rem;
     }
+  }
+  i {
+    font-size: 1.3rem;
   }
 }
