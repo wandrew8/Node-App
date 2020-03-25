@@ -88,3 +88,20 @@
     }
   }
 }
+.errorContainer {
+  transition: 500ms ease-in;
+  text-align: center;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hide {
+  opacity: 0;
+  transform: translateX(10px);
+  transition: 500ms ease-in;
+}
+h2 {
+  margin: 0 !important;
+  padding: 0 !important;
+}

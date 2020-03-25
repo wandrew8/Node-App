@@ -50,6 +50,11 @@ header i {
   cursor: pointer;
   transform: scale(1.2);
 }
+.searchbar form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
 .hidden {
   transition: 300ms ease-in;
@@ -233,36 +238,56 @@ header i {
   margin: 0 0.5rem;
 }
 .photoContainer .photoContainer:nth-child(1) {
-  height: 383px;
-  line-height: 383px;
+  height: 154px;
+  line-height: 154px;
 }
 .photoContainer .photoContainer:nth-child(2) {
-  height: 435px;
-  line-height: 435px;
+  height: 160px;
+  line-height: 160px;
 }
 .photoContainer .photoContainer:nth-child(3) {
-  height: 313px;
-  line-height: 313px;
+  height: 115px;
+  line-height: 115px;
 }
 .photoContainer .photoContainer:nth-child(4) {
-  height: 243px;
-  line-height: 243px;
+  height: 184px;
+  line-height: 184px;
 }
 .photoContainer .photoContainer:nth-child(5) {
-  height: 299px;
-  line-height: 299px;
+  height: 392px;
+  line-height: 392px;
 }
 .photoContainer .photoContainer:nth-child(6) {
-  height: 489px;
-  line-height: 489px;
+  height: 111px;
+  line-height: 111px;
 }
 .photoContainer .photoContainer:nth-child(7) {
-  height: 304px;
-  line-height: 304px;
+  height: 168px;
+  line-height: 168px;
 }
 .photoContainer .photoContainer:nth-child(8) {
-  height: 339px;
-  line-height: 339px;
+  height: 420px;
+  line-height: 420px;
+}
+
+.errorContainer {
+  transition: 500ms ease-in;
+  text-align: center;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hide {
+  opacity: 0;
+  transform: translateX(10px);
+  transition: 500ms ease-in;
+}
+
+h2 {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .singlePhoto {

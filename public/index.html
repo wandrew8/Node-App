@@ -24,8 +24,12 @@
     <!-- SEARCH BAR -->
     <div class="searchbar hidden">
       <div class="closeBar"><i class="far fa-times-circle"></i></div>
-      <input required type="text" id="searchTags" />
-      <button type="submit"><i class="fas fa-search"></i> Search</button>
+      <form id="searchForm">
+        <input required type="text" name="search" id="searchTags" />
+        <button id="submitSearch" type="submit">
+          <i class="fas fa-search"></i> Search
+        </button>
+      </form>
     </div>
 
     <!-- FORM MODAL -->
@@ -91,7 +95,7 @@
         </div>
       </form>
     </div>
-
+    <div class="errorContainer hide"></div>
     <div class="photoContainer"></div>
   </body>
   <script

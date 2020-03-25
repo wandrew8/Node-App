@@ -8,6 +8,10 @@ const formModal = document.querySelector(".formModal");
 const closeModalButton = document.querySelector('.closeModal');
 const photoContainer = document.querySelector('.photoContainer');
 const searchBarButton = document.querySelector('.searchButton');
+const searchQuery = document.querySelector('#searchTags');
+const searchSubmit = document.querySelector('#submitSearch');
+const errorContainer = document.querySelector('.errorContainer');
+const searchForm = document.getElementById('searchForm');
 
 //OTHER VARIABLES
 let imageToPost;
@@ -26,15 +30,20 @@ const myWidget = cloudinary.createUploadWidget({
   )
 
 //FETCH REQUESTS TO SERVER
-function getPhotos(url) {
+function getPhotos(url, query, showModal) {
     fetch(url)
     .then(res => res.json())
     .then(data => {
         console.log(data)
-        if (data.length <= 1) {
-            showPhotos([...data]);
+        errorContainer.innerHTML = ``;
+        if (data.length === 0) {
+            errorContainer.classList.remove('hide');
+            errorContainer.innerHTML = `<h2>Sorry, we couldn't find any photos for "${query}"</h2>`
+            setTimeout(() => {
+                errorContainer.classList.add('hide')
+            }, 2000)
         } else {
-            showPhotos(data);
+            showPhotos(data, showModal);
         }
     })
     .catch(err => console.log(err))
@@ -57,10 +66,10 @@ async function postPhoto(url = '', data = {}) {
   }
 
 //-----   FUNCTIONS   -----//
-function showPhotos(data) {
+function showPhotos(data, showModal) {
     const container = document.querySelector('.photoContainer');
     let html;
-    if (data.length > 1) {
+    if (!showModal) {
     container.innerHTML = '';
         data.forEach(photo => {
             html = `
@@ -125,14 +134,14 @@ function validateForm(e) {
     sampleImageHolder.innerHTML = '';
     form.reset();
     formModal.classList.remove('showModal');
-    getPhotos('http://localhost:3000/photos');
+    getPhotos('http://localhost:3000/photos', null, false);
 }
 
 //-----   EVENT LISTENERS   -----//
 
 //LOADS PHOTOS ON PAGE LOAD
 document.addEventListener('DOMContentLoaded', function () {
-    getPhotos('http://localhost:3000/photos')});
+    getPhotos('http://localhost:3000/photos', null, false)});
 
 //SHOWS FORM MODAL
 formButton.addEventListener('click', function() {
@@ -177,14 +186,14 @@ photoContainer.addEventListener('click', function(e) {
     console.log(id)
     console.log(e.target.classList)
     if (e.target.classList.value === 'image') {
-        getPhotos('http://localhost:3000/photos/' + id);
+        getPhotos('http://localhost:3000/photos/' + id, null, true);
         console.log('success')
     }
 });
 
 //OPENS CLOSES SEARCHBAR 
+const searchBar = document.querySelector('.searchbar');
 searchBarButton.addEventListener('click', function() {
-    const searchBar = document.querySelector('.searchbar');
     const closeBar = document.querySelector('.closeBar');
     searchBar.classList.remove('hidden');
     closeBar.addEventListener('click', function() {
@@ -195,7 +204,21 @@ searchBarButton.addEventListener('click', function() {
             searchBar.classList.add('hidden');
         }
     })
+});
 
+//FORM SUBMIT TO SEARCH PHOTOS
+searchForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const query = searchQuery.value.split(' ').join('&')
+    if (searchQuery.value) {
+        console.log(query)
+        getPhotos('http://localhost:3000/photos/search/' + query, query, false);
+        searchQuery.value = '';
+        searchBar.classList.add('hidden');
+    } else {
+        console.log('Error')
+        searchBar.classList.add('hidden');
+    }
 })
 
 

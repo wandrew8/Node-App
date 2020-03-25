@@ -25,6 +25,11 @@
       transform: scale(1.2);
     }
   }
+  form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 }
 .hidden {
   transition: 300ms ease-in;
