@@ -1,33 +1,32 @@
 const mongoose = require('mongoose');
-const photoSchema = require('./photo');
+const passportLocalMongoose = require('passport-local-mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     firstName: {
         type: String,
-        required: true
+        default: ''
     },
     LastName: {
         type: String,
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true
+        default: ''
     },
     userImage: {
-        type:String,
-    },
-    password: {
         type: String,
-        required: true,
+        default: ''
     },
-    userPhotos: [String],
-    favorites: [String]
+    favorites: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Photo'
+    },
+    admin: {
+        type: Boolean,
+        default: false
+    }
 }, {
     timestamps: true
 });
 
-const User = mongoose.model('User', userSchema);
+userSchema.plugin(passportLocalMongoose);
 
-module.exports = User;
+module.exports = mongoose.model('User', userSchema);
