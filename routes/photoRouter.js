@@ -19,7 +19,8 @@ photoRouter.get('/', (req, res, next) => {
     .catch(err => next(err));
 })
 
-photoRouter.post('/', (req, res) => {
+photoRouter.route('/')
+.post(authenticate.verifyUser,  (req, res) => {
     Photo.create(req.body)
     .then(photo => {
         console.log('Photo Created ', photo);
@@ -29,7 +30,8 @@ photoRouter.post('/', (req, res) => {
     })
     .catch(err => next(err))
 })
-photoRouter.put('/', (req, res) => {
+photoRouter.route('/')
+.put(authenticate.verifyUser, (req, res) => {
     res.statusCode = 403;
     res.end('PUT operation not supported on /photos');
 })
@@ -52,7 +54,8 @@ photoRouter.get('/:photoId', (req, res, next) => {
     })
     .catch(err => next(err));
 })
-photoRouter.post('/:photoId',(req, res) => {
+photoRouter.route('/:photoId')
+.post(authenticate.verifyUser, (req, res) => {
     Photo.create(req.body)
     .then(photo => {
         console.log('Photo Created ', photo);
@@ -62,7 +65,8 @@ photoRouter.post('/:photoId',(req, res) => {
     })
     .catch(err => next(err))
 })
-photoRouter.put('/:photoId',(req, res, next) => {
+photoRouter.route('/:photoId')
+.post(authenticate.verifyUser, (req, res, next) => {
     Photo.findByIdAndUpdate(req.params.photoId, {
         $set: req.body
     }, { new: true })
@@ -73,7 +77,8 @@ photoRouter.put('/:photoId',(req, res, next) => {
     })
     .catch(err => next(err));
 })
-photoRouter.delete('/:photoId',(req, res, next) => {
+photoRouter.route('/:photoId')
+.delete(authenticate.verifyUser, (req, res, next) => {
     Photo.deleteOne({ "_id": req.params.photoId })
     .then(response => {
         res.statusCode = 200;

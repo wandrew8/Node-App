@@ -5,6 +5,7 @@ const logger = require('morgan');
 const passport = require('passport');
 
 const cors = require('cors');
+const indexRouter = require('./routes/indexRouter');
 const photoRouter = require('./routes/photoRouter');
 const userRouter = require('./routes/userRouter');
 require('dotenv').config()
@@ -35,8 +36,9 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(passport.initialize());
 
-app.use('/photos', photoRouter);
+app.use('/', indexRouter);
 app.use('/users', userRouter);
+app.use('/photos', photoRouter);
        
 app.use(express.static(path.join(__dirname, 'public')));
 

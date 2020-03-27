@@ -132,7 +132,7 @@ userRouter.get('/category/:category', (req, res, next) => {
 });
 
 userRouter.route('/search/:query')
-.get((req, res, next) => {
+.get(authenticate.verifyUser, (req, res, next) => {
     Photo.find({ "tags": req.params.query })
     .then(photo => {
         res.statusCode = 200;
