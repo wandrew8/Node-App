@@ -6,10 +6,7 @@ const photoSchema = new Schema({
         type: String,
         required: true
     },
-    author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
+    author: [{type: Schema.Types.ObjectId, ref: 'User'}],
     tags: [String],
     imageUrl: {
         type: String,

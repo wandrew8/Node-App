@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Photo = require('../models/photo');
-const User = require('../models/user');
 const authenticate = require('../authenticate');
 
 
@@ -11,6 +10,7 @@ photoRouter.use(bodyParser.json());
 
 photoRouter.get('/', (req, res, next) => {
     Photo.find()
+    .populate('author')
     .then(photos => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
@@ -23,10 +23,21 @@ photoRouter.route('/')
 .post(authenticate.verifyUser,  (req, res) => {
     Photo.create(req.body)
     .then(photo => {
-        console.log('Photo Created ', photo);
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(photo)
+        if (photo) {
+            console.log("This is the photo" + photo)
+            photo.author.push(req.user._id);
+            photo.save()
+            .then(photo => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(photo);
+            })
+            .catch(err => next(err));
+        } else {
+            err = new Error(`photo ${req.params.photoId} not found`);
+            err.status = 404;
+            return next(err);
+        }
     })
     .catch(err => next(err))
 })
@@ -47,6 +58,7 @@ photoRouter.delete('/', (req, res, next) => {
 
 photoRouter.get('/:photoId', (req, res, next) => {
     Photo.findById(req.params.photoId)
+    .populate('author')
     .then(photo => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
@@ -91,6 +103,7 @@ photoRouter.route('/:photoId')
 
 photoRouter.get('/category/:category', (req, res, next) => {
     Photo.find({ "category": req.params.category })
+    .populate('author')
     .then(photo => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
@@ -101,6 +114,7 @@ photoRouter.get('/category/:category', (req, res, next) => {
 
 photoRouter.get('/search/:query', (req, res, next) => {
     Photo.find({ "tags": req.params.query })
+    .populate('author')
     .then(photo => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');

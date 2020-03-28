@@ -8,7 +8,7 @@
 },
 {
     "username": "wandrew8",
-    "password": "password"
+    "password": "password123"
 },
 {
     "firstName": "Jessica",

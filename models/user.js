@@ -15,10 +15,8 @@ const userSchema = new Schema({
         type: String,
         default: ''
     },
-    favorites: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Photo'
-    },
+    favorites: [{type: Schema.Types.ObjectId, ref: 'Photo'}],
+    postedPhotos: [{type: Schema.Types.ObjectId, ref: 'Photo'}],
     admin: {
         type: Boolean,
         default: false

@@ -80,38 +80,38 @@ userRouter.get('/logout', (req, res, next) => {
   }
 })
 
-userRouter.get('/:photoId', (req, res, next) => {
-    Photo.findById(req.params.photoId)
-    .then(photo => {
+userRouter.get('/:userId', (req, res, next) => {
+    User.findById(req.params.userId)
+    .then(user => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(photo);
+        res.json(user);
     })
     .catch(err => next(err));
 })
-userRouter.post('/:photoId', (req, res) => {
-    Photo.create(req.body)
-    .then(photo => {
-        console.log('Photo Created ', photo);
+userRouter.post('/:userId', (req, res) => {
+    User.create(req.body)
+    .then(user => {
+        console.log('User Created ', user);
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(photo)
+        res.json(user)
     })
     .catch(err => next(err))
 })
-userRouter.put('/:photoId', (req, res, next) => {
-    Photo.findByIdAndUpdate(req.params.photoId, {
+userRouter.put('/:userId', (req, res, next) => {
+    User.findByIdAndUpdate(req.params.userId, {
         $set: req.body
     }, { new: true })
-    .then(photo => {
+    .then(user => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(photo);
+        res.json(user);
     })
     .catch(err => next(err));
 })
-userRouter.delete('/:photoId', (req, res, next) => {
-    Photo.deleteOne({ "_id": req.params.photoId })
+userRouter.delete('/:userId', (req, res, next) => {
+    User.deleteOne({ "_id": req.params.userId })
     .then(response => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
@@ -122,22 +122,22 @@ userRouter.delete('/:photoId', (req, res, next) => {
 });
 
 userRouter.get('/category/:category', (req, res, next) => {
-    Photo.find({ "category": req.params.category })
-    .then(photo => {
+    User.find({ "category": req.params.category })
+    .then(user => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(photo);
+        res.json(user);
     })
     .catch(err => next(err));
 });
 
 userRouter.route('/search/:query')
 .get(authenticate.verifyUser, (req, res, next) => {
-    Photo.find({ "tags": req.params.query })
-    .then(photo => {
+    User.find({ "tags": req.params.query })
+    .then(user => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(photo);
+        res.json(user);
     })
     .catch(err => next(err));
 })
