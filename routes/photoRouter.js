@@ -2,13 +2,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Photo = require('../models/photo');
 const authenticate = require('../authenticate');
+const cors = require('./cors');
 
 
 const photoRouter = express.Router();
 
 photoRouter.use(bodyParser.json());
 
-photoRouter.get('/', (req, res, next) => {
+photoRouter.route('/')
+.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+.get(cors.cors, (req, res, next) => {   
     Photo.find()
     .populate('author')
     .then(photos => {
@@ -20,7 +23,7 @@ photoRouter.get('/', (req, res, next) => {
 })
 
 photoRouter.route('/')
-.post(authenticate.verifyUser,  (req, res) => {
+.post((req, res) => {
     Photo.create(req.body)
     .then(photo => {
         if (photo) {
@@ -42,11 +45,11 @@ photoRouter.route('/')
     .catch(err => next(err))
 })
 photoRouter.route('/')
-.put(authenticate.verifyUser, (req, res) => {
+.put(cors.corsWithOptions, authenticate.verifyUser, (req, res) => {
     res.statusCode = 403;
     res.end('PUT operation not supported on /photos');
 })
-photoRouter.delete('/', (req, res, next) => {
+photoRouter.delete('/', cors.corsWithOptions, authenticate.verifyAdmin,(req, res, next) => {
     Photo.deleteMany()
     .then(response => {
         res.statusCode = 200;
@@ -56,7 +59,9 @@ photoRouter.delete('/', (req, res, next) => {
     .catch(err => next(err));
 });
 
-photoRouter.get('/:photoId', (req, res, next) => {
+photoRouter.route('/:photoId')
+.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+.get(cors.cors, (req, res, next) => {
     Photo.findById(req.params.photoId)
     .populate('author')
     .then(photo => {
@@ -66,21 +71,13 @@ photoRouter.get('/:photoId', (req, res, next) => {
     })
     .catch(err => next(err));
 })
-photoRouter.route('/:photoId')
-.post(authenticate.verifyUser, (req, res) => {
-    Photo.create(req.body)
-    .then(photo => {
-        console.log('Photo Created ', photo);
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(photo)
-    })
-    .catch(err => next(err))
+.post(cors.corsWithOptions, authenticate.verifyUser, (req, res) => {
+    res.statusCode = 403;
+    res.end(`POST operation not supported on /campsites/${req.params.photoId}`);
 })
-photoRouter.route('/:photoId')
-.post(authenticate.verifyUser, (req, res, next) => {
+.put(cors.corsWithOptions, (req, res, next) => {
     Photo.findByIdAndUpdate(req.params.photoId, {
-        $set: req.body
+        $inc: {likes: 1}
     }, { new: true })
     .then(photo => {
         res.statusCode = 200;
@@ -89,8 +86,7 @@ photoRouter.route('/:photoId')
     })
     .catch(err => next(err));
 })
-photoRouter.route('/:photoId')
-.delete(authenticate.verifyUser, (req, res, next) => {
+.delete(cors.cors, (req, res, next) => {
     Photo.deleteOne({ "_id": req.params.photoId })
     .then(response => {
         res.statusCode = 200;
@@ -101,7 +97,149 @@ photoRouter.route('/:photoId')
 
 });
 
-photoRouter.get('/category/:category', (req, res, next) => {
+
+//COMMENT ROUTES
+
+photoRouter.route('/:photoId/comments')
+.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+.get(cors.cors, (req, res, next) => {
+    Photo.findById(req.params.photoId)
+    .populate('comments.author')
+    .then(photo => {
+        if (photo) {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.json(photo.comments);
+        } else {
+            err = new Error(`photo ${req.params.photoId} not found`);
+            err.status = 404;
+            return next(err);
+        }
+    })
+    .catch(err => next(err));
+})
+.post(cors.cors, (req, res, next) => {
+    Photo.findById(req.params.photoId)
+    .then(photo => {
+        if (photo) {
+            photo.comments.push(req.body);
+            photo.save()
+            .then(photo => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(photo);
+            })
+            .catch(err => next(err));
+        } else {
+            err = new Error(`Photo ${req.params.photoId} not found`);
+            err.status = 404;
+            return next(err);
+        }
+    })
+    .catch(err => next(err));
+})
+.delete(cors.corsWithOptions, (req, res, next) => {
+    Photo.findById(req.params.photoId)
+    .then(photo => {
+        if (photo) {
+            for (let i = (photo.comments.length-1); i >= 0; i--) {
+                photo.comments.id(photo.comments[i]._id).remove();
+            }
+            photo.save()
+            .then(photo => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(photo);
+            })
+            .catch(err => next(err));
+        } else {
+            err = new Error(`Photo ${req.params.photoId} not found`);
+            err.status = 404;
+            return next(err);
+        }
+    })
+    .catch(err => next(err));
+});
+
+photoRouter.route('/:photoId/comments/:commentId')
+.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+.put(cors.corsWithOptions, (req, res, next) => {
+    Photo.findById(req.params.photoId)
+    .then(photo => {
+        if (photo && photo.comments.id(req.params.commentId)) {
+            if (photo.comments.id(req.params.commentId).author._id.equals(req.user._id)) {
+                    if (req.body.text) {
+                        photo.comments.id(req.params.commentId).text = req.body.text;
+                    }
+                    photo.save()
+                    .then(photo => {
+                        res.statusCode = 200;
+                        res.setHeader('Content-Type', 'application/json');
+                        res.json(photo);
+                    })
+                    .catch(err => next(err));
+            } else {
+                    res.statusCode = 403;
+                    res.end('Only the author can update this comment');
+            }
+        } else if (!photo) {
+            err = new Error(`Photo ${req.params.photoId} not found`);
+            err.status = 404;
+            return next(err);
+        } else {
+            err = new Error(`Comment ${req.params.commentId} not found`);
+            err.status = 404;
+            return next(err);
+        }
+    })
+    .catch(err => next(err));
+})
+.delete(cors.corsWithOptions, (req, res, next) => {
+    Photo.findById(req.params.photoId)
+    .then(photo => {
+        if (photo && photo.comments.id(req.params.commentId)) {
+            if (photo.comments.id(req.params.commentId).author._id.equals(req.user._id)) {
+            photo.comments.id(req.params.commentId).remove();
+            photo.save()
+            .then(photo => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(photo);
+            })
+            .catch(err => next(err));
+        } else {
+            res.statusCode = 403;
+            res.end('Only the author can delete this comment');
+        }
+        } else if (!photo) {
+            err = new Error(`Photo ${req.params.photoId} not found`);
+            err.status = 404;
+            return next(err);
+        } else {
+            err = new Error(`Comment ${req.params.commentId} not found`);
+            err.status = 404;
+            return next(err);
+        }
+    })
+    .catch(err => next(err));
+});
+
+photoRouter.route('/author/:authorId')
+.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+.get(cors.cors, (req, res, next) => {
+    Photo.find({"author": req.params.authorId})
+    .populate('author')
+    .then(photo => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(photo);
+    })
+    .catch(err => next(err));
+})
+
+photoRouter.route('/category/:category')
+.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+.get(cors.cors, (req, res, next) => {
     Photo.find({ "category": req.params.category })
     .populate('author')
     .then(photo => {
@@ -112,7 +250,9 @@ photoRouter.get('/category/:category', (req, res, next) => {
     .catch(err => next(err));
 });
 
-photoRouter.get('/search/:query', (req, res, next) => {
+photoRouter.route('/search/:query')
+.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+.get(cors.cors, (req, res, next) => {
     Photo.find({ "tags": req.params.query })
     .populate('author')
     .then(photo => {
