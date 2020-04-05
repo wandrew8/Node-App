@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../models/user');
+const cors = require('./cors');
 const passport = require('passport');
 const authenticate = require('../authenticate');
 
@@ -123,6 +124,69 @@ userRouter.delete('/:userId', (req, res, next) => {
 
 });
 
+//GETTING PHOTOS BY FAVORITES
+userRouter.route('/:userId/favorites')
+.get(cors.cors, (req, res, next) => {
+  User.findById(req.params.userId)
+  .populate('favorites')
+  .then(user => {
+    if (user) {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(user.favorites);
+    } else {
+        err = new Error(`user ${req.params.userId} not found`);
+        err.status = 404;
+        return next(err);
+    }
+})
+.catch(err => next(err));
+})
+.post(cors.cors, (req, res) => {
+  User.findById(req.params.userId)
+  .then(user => {
+    if(user) {
+      user.favorites.push(req.body);
+      user.save()
+      .then(user => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(user);
+      })
+      .catch(err => next(err));
+    } else {
+      err = new Error('User not found');
+      err.status = 404;
+      return next(err);
+    }
+  })
+  .catch(err => next(err))
+})
+.delete(cors.cors, (req, res, next) => {
+  User.findById(req.params.userId)
+  .then(user => {
+    if(user) {
+      for (let i = (user.favorites.length); i >= 0; i--) {
+        user.favorites.id(user.favorites[i]._id).remove();
+      }
+      user.save()
+      .then(user => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(user)
+      })
+      .catch(err => next(err));
+    } else {
+      err = new Error('User not found');
+      err.status = 404;
+      return next(err)
+    }
+  })
+  .catch(err => next(err));
+
+});
+
+//GETTING PHOTOS BY CATEGORIES
 userRouter.get('/category/:category', (req, res, next) => {
     User.find({ "category": req.params.category })
     .then(user => {
@@ -133,6 +197,7 @@ userRouter.get('/category/:category', (req, res, next) => {
     .catch(err => next(err));
 });
 
+//GETTTING PHOTOS BY SEARCH QUERY
 userRouter.route('/search/:query')
 .get(authenticate.verifyUser, (req, res, next) => {
     User.find({ "tags": req.params.query })
