@@ -186,6 +186,25 @@ userRouter.route('/:userId/favorites')
 
 });
 
+userRouter.route('/:userId/favorites/:photoId')
+.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+.delete(cors.cors, (req, res, next) => {
+  User.findById(req.params.userId)
+  .then(user => {
+      const index = user.favorites.indexOf(req.params.photoId)
+      if(index > -1) {
+        user.favorites.splice(index, 1);
+      }
+      user.save()
+      .then(user => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(user)
+      })
+      .catch(err => next(err));
+    })
+});
+
 //GETTING PHOTOS BY CATEGORIES
 userRouter.get('/category/:category', (req, res, next) => {
     User.find({ "category": req.params.category })
