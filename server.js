@@ -39,6 +39,8 @@ app.use(passport.initialize());
 app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/photos', photoRouter);
+app.get('/favicon.ico', (req, res) => res.status(204));
+
        
 app.use(express.static(path.join(__dirname, 'public')));
 
