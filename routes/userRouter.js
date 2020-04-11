@@ -72,15 +72,12 @@ userRouter.post('/login', passport.authenticate('local'), (req, res) => {
 });
 
 userRouter.get('/logout', (req, res, next) => {
-  if (req.session) {
-    req.session.destroy();
-    res.clearCookie('session-id');
+  console.log(req.body)
+    req.logOut()
     res.redirect('/')
-  } else {
-    const err = new Error('You are not logged in');
-    err.status = 401;
-    return next(err);
-  }
+    res.end('Hello')
+  .catch(err => next(err))
+  
 })
 
 userRouter.get('/:userId', (req, res, next) => {

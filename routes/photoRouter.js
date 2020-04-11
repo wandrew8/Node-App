@@ -163,25 +163,27 @@ photoRouter.route('/:photoId/comments')
 
 photoRouter.route('/:photoId/comments/:commentId')
 .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
-.put(cors.corsWithOptions, (req, res, next) => {
+.put(cors.cors, (req, res, next) => {
     Photo.findById(req.params.photoId)
     .then(photo => {
         if (photo && photo.comments.id(req.params.commentId)) {
-            if (photo.comments.id(req.params.commentId).author._id.equals(req.user._id)) {
-                    if (req.body.text) {
-                        photo.comments.id(req.params.commentId).text = req.body.text;
-                    }
-                    photo.save()
-                    .then(photo => {
-                        res.statusCode = 200;
-                        res.setHeader('Content-Type', 'application/json');
-                        res.json(photo);
-                    })
-                    .catch(err => next(err));
-            } else {
-                    res.statusCode = 403;
-                    res.end('Only the author can update this comment');
+            if (req.body.text) {
+                photo.comments.id(req.params.commentId).text = req.body.text;
             }
+            if (req.body.likes) {
+                photo.comments.id(req.params.commentId).likes = req.body.likes;
+            }
+            if (req.body.dislikes) {
+                photo.comments.id(req.params.commentId).dislikes = req.body.dislikes;
+            }
+            photo.save()
+            .then(photo => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(photo);
+            })
+            .catch(err => next(err));
+           
         } else if (!photo) {
             err = new Error(`Photo ${req.params.photoId} not found`);
             err.status = 404;
