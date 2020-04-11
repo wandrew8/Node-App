@@ -11,7 +11,7 @@ photoRouter.use(bodyParser.json());
 
 photoRouter.route('/')
 .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
-.get(cors.cors, (req, res, next) => {   
+.get((req, res, next) => {   
     Photo.find()
     .populate('author')
     .then(photos => {
