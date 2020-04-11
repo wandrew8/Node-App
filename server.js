@@ -38,13 +38,10 @@ app.use(passport.initialize());
 
 app.use('/', indexRouter);
 app.use('/users', userRouter);
-// app.use('/photos', photoRouter);
+app.use('/photos', photoRouter);
 app.get('/favicon.ico', (req, res) => res.status(204));
 
        
-app.use(express.static(path.join(__dirname, 'public')));
-
-
 //connect to application server
 app.set('port', process.env.PORT || 3000);
 const server = app.listen(app.get('port'), () => {
