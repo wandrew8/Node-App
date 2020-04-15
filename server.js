@@ -3,21 +3,21 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const logger = require('morgan');
 const passport = require('passport');
+require('dotenv').config()
 
 const cors = require('cors');
 const indexRouter = require('./routes/indexRouter');
 const photoRouter = require('./routes/photoRouter');
 const userRouter = require('./routes/userRouter');
 // const mongoDB = "mongodb://localhost:27017/pixelimages"
-require('dotenv').config()
-
+console.log(require('dotenv').config())
 
 const app = express();
 const mongoose = require('mongoose');
 app.use(cors({
     origin: 'http://localhost:3001',
 }));
-const connect = mongoose.connect(process.env.MONGO_URI, {
+const connect = mongoose.connect(process.env.MONGODB_URI, {
     useCreateIndex: true,
     useFindAndModify: false,
     useNewUrlParser: true, 
