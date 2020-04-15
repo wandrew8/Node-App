@@ -9,9 +9,9 @@ const photoRouter = express.Router();
 
 photoRouter.use(bodyParser.json());
 
-photoRouter.route('/')
-// .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
-.get((req, res, next) => {   
+
+photoRouter
+.get("/", (req, res, next) => {   
     Photo.find()
     .populate('author')
     .then(photos => {
