@@ -5,7 +5,7 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 require('dotenv').config()
-const secretKey = process.env.SECRETKEY;
+const secretKey = "12345-67890-09876-54321";
 
 
 exports.local = passport.use(new LocalStrategy(User.authenticate()));
