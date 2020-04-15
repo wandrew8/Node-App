@@ -8,7 +8,7 @@ const cors = require('cors');
 const indexRouter = require('./routes/indexRouter');
 const photoRouter = require('./routes/photoRouter');
 const userRouter = require('./routes/userRouter');
-const mongoDB = "mongodb://localhost:27017/pixelimages"
+// const mongoDB = "mongodb://localhost:27017/pixelimages"
 require('dotenv').config()
 
 
@@ -17,7 +17,7 @@ const mongoose = require('mongoose');
 app.use(cors({
     origin: 'http://localhost:3001',
 }));
-const connect = mongoose.connect(mongoDB, {
+const connect = mongoose.connect(process.env.MONGO_URI, {
     useCreateIndex: true,
     useFindAndModify: false,
     useNewUrlParser: true, 
