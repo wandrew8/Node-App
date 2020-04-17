@@ -10,7 +10,6 @@ const indexRouter = require('./routes/indexRouter');
 const photoRouter = require('./routes/photoRouter');
 const userRouter = require('./routes/userRouter');
 // const mongoDB = "mongodb://localhost:27017/pixelimages"
-console.log(require('dotenv').config())
 
 const app = express();
 const mongoose = require('mongoose');

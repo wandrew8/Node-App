@@ -15,6 +15,9 @@ const userSchema = new Schema({
         type: String,
         default: ''
     },
+    bio: {
+        type: String
+    },
     favorites: [{type: Schema.Types.ObjectId, ref: 'Photo'}],
     postedPhotos: [{type: Schema.Types.ObjectId, ref: 'Photo'}],
     admin: {
