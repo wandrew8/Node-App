@@ -73,7 +73,7 @@ photoRouter.route('/:photoId')
 })
 .post(cors.corsWithOptions, authenticate.verifyUser, (req, res) => {
     res.statusCode = 403;
-    res.end(`POST operation not supported on /campsites/${req.params.photoId}`);
+    res.end(`POST operation not supported`);
 })
 .put(cors.corsWithOptions, (req, res, next) => {
     Photo.findByIdAndUpdate(req.params.photoId, {
