@@ -63,13 +63,14 @@ userRouter.post('/signup', (req, res, next) => {
     )
   });
 
-userRouter.post('/login', passport.authenticate('local'), (req, res) => {
+userRouter.post('/login', passport.authenticate('local'), (req, res, next) => {
   const token = authenticate.getToken({_id: req.user._id});
   const userId = req.user._id
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json');
-  res.json({success: true, userId: userId, token: token, status: 'You are successfully logged in!'});
-});
+  res.json({success: true, userId: userId, token: token, status: 'You are successfully logged in!'})
+  .catch(err => next(err))
+})
 
 userRouter.get('/logout', (req, res, next) => {
   console.log(req.body)

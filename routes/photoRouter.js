@@ -96,6 +96,12 @@ photoRouter.route('/:photoId')
     .catch(err => next(err));
 
 });
+photoRouter.put('/:photoId/update', function(req, res, next) {
+    Photo.findByIdAndUpdate(req.params.photoId, req.body, function (err, photo) {
+     if (err) return next(err);
+     res.json(photo);
+    });
+});
 
 
 //COMMENT ROUTES
