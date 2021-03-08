@@ -15,7 +15,7 @@ const app = express();
 const mongoose = require('mongoose');
 app.use(cors());
 
-const connect = mongoose.connect(process.env.MONGODB_URI, {
+const connect = mongoose.connect(process.env.MONGODB_URL, {
     useCreateIndex: true,
     useFindAndModify: false,
     useNewUrlParser: true, 
